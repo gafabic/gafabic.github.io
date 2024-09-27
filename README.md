@@ -1,7 +1,6 @@
-# Galen Fabic
-
 ## About me:
 A natural curiosity about the world around me and how it operates has lead to a passion for security systems physical, social, and computerized. Already an IT professional, I am seeking to enter into the field of cybersecurity, focused currently on joining a SOC analyst team.
+
 <a href="https://linkedin.com/in/galenf"><img src="https://img.shields.io/badge/linkedin-green"></a>
 
 ## Certifications
