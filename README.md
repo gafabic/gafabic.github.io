@@ -1,5 +1,5 @@
 ## About me:
-A natural curiosity about the world around me and how it operates has lead to a passion for security systems physical, social, and computerized. Already an IT professional, I am seeking to enter into the field of cybersecurity, focused currently on joining a SOC analyst team.
+A natural curiosity about the world around me and how it operates has led to a passion for security systems physical, social, and computerized. Already an IT professional, I am seeking to enter into the field of cybersecurity, focused currently on joining a SOC analyst team.
 - Pronouns: He/Him
 - Currently studying: Splunk, Web application pentesting, Russian
 - Current projects: Setting up home server rack for lab work
