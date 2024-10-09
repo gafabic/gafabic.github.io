@@ -1,4 +1,4 @@
-<p style="text-align: center"><a href = "Projects/index.md"><img src= "https://img.shields.io/badge/Projects-blue"></a></p>
+<p style="text-align: center"><a href = "Projects/index"><img src= "https://img.shields.io/badge/Projects-blue"></a></p>
 
 ## About me:
 A natural curiosity about the world around me and how it operates has led to a passion for security systems physical, social, and computerized. Already an IT professional, I am seeking to enter into the field of cybersecurity, focused currently on joining a SOC analyst team.

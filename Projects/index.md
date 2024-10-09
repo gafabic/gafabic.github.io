@@ -1,1 +1,1 @@
-Current Projects: <a href = "SIEMServer.md">SIEM/EDR server</a>
+Current Projects: <a href = "SIEMServer">SIEM/EDR server</a>
