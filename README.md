@@ -1,4 +1,4 @@
-<p style="text-align: center"><a href = "Projects/index"><img src= "https://img.shields.io/badge/Projects-teal"></a><a href="https://linkedin.com/in/galenf"><img src="https://img.shields.io/badge/Linkedin-green"></a><a href = "Writeups/index"><img src = "https://img.shields.io/badge/Writeups-teal"></a></p>
+<p style="text-align: center"><a href = "Projects/index"><img src= "https://img.shields.io/badge/Projects-teal?style=for-the-badge"></a><a href="https://linkedin.com/in/galenf"><img src="https://img.shields.io/badge/Linkedin-green?style=for-the-badge"></a><a href = "Writeups/index"><img src = "https://img.shields.io/badge/Writeups-teal?style=for-the-badge"></a></p>
 
 ## About me:
 A natural curiosity about the world around me and how it operates has led to a passion for security systems physical, social, and computerized. Already an IT professional, I am seeking to enter into the field of cybersecurity, focused currently on joining a SOC analyst team.
