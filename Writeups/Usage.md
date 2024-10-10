@@ -3,7 +3,7 @@
 
 ## Initial Enumeration
 
-After starting the machine, we are provided with an IP of 10.10.11.18.
+After starting the machine, we are provided with an IP of **10.10.11.18**.
 
 An initial scan `(nmap -p- -Pn --disable-arp-ping --min-rate 300 --stats-every=5s 10.10.11.18)` reveals open ports 22 and 80. A follow-up scan to further enumerate `(sudo nmap -O -sV -p 22,80 10.10.11.18)` provides the following details:
 
