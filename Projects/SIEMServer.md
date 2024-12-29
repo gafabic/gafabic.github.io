@@ -13,6 +13,7 @@
 	- Brute force alerts increased in severity level
 
 ## Next steps:
+- Tune alerts regarding network scanning
 - Monitor alerts, tune alert severity down for alerts that prove to be more noise than signal
 - Run penetration tests to see what alerts populate from that activity, and tune alert severity accordingly.
 - Add push notifications so I am alerted remotely whenever an alert of "high" or greater severity populates
