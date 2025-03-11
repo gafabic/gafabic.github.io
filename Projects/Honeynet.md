@@ -2,6 +2,8 @@
 
 # Simple Honeynet
 
+[Writeup of my findings can be found here.](../Writeups/HoneynetWriteup)
+
 ## Project goals:
 - Gain experience configuring Microsoft Sentinel
 - Gain experience investigating incidents with Sentinel
@@ -21,7 +23,7 @@
 ## Project updates
 
 ### 03/11/25:
-[Writeup of my findings from this project has been posted.](../Writeups/HoneynetWriteup)
+Writeup of my findings from this project has been posted.
 
 ### 03/06/25:
 Azure trial credits expired, unable to get any new data. I may revisit this project at some later time when a subscription is viable.
