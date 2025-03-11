@@ -13,8 +13,8 @@
 - Chose a user to permit attackers to access ("minecraft"), and enabled logging of commands run by users so that initial access and recon activity can be monitored
 
 ## ~~Next steps:~~
-- ~Choose a user to enable attacker access on Windows machine~
-- ~Monitor attacks and investigate actions taken, try to fingerprint attacker profile.~
+- ~~Choose a user to enable attacker access on Windows machine~~
+- ~~Monitor attacks and investigate actions taken, try to fingerprint attacker profile.~~
 - Azure trial credits have expired, project is currently on hiatus.
 
 ---
