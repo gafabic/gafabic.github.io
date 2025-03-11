@@ -2,8 +2,9 @@
 
 # CTF Writeups
 ---
-## Red Team CTFs:
+## Red Team Writeups:
 [HackTheBox - Usage](Usage)
 
 ---
-## Blue Team CTFs:
+## Blue Team Writeups:
+[Azure Honeynet Lab](HoneynetWriteup)

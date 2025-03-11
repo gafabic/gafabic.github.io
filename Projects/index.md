@@ -3,6 +3,7 @@
 # Projects
 ---
 ## Current Projects:
+- <a href = "Honeynet">Simple Honeynet</a>
 - <a href = "SuricataIDS">Suricata IDS</a>
 
 ---
