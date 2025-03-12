@@ -4,11 +4,11 @@
 
 ## Basic premise
 
-As a cybersecurity nerd, I am always interested in getting hands-on experience. Theory and certifications are excellent, but nothing can really beat real-world usage. Thus, in order to develop further familiarity with SOC operations and non-simulated hacking attacks, I decided to set up a honeynet lab environment.
+As an IT professional, I am always interested in getting hands-on experience. Theory and certifications are excellent, but nothing can really beat real-world usage. Thus, in order to develop further familiarity with SOC operations and non-simulated hacking attacks, I decided to set up a honeynet lab environment.
 
-While one _could_ set up such a thing locally, I decided that exposing devices in my home network to the internet with the explicit purpose of being attacked was too risky. Furthermore, I had interest in gaining experience with Azure Sentinel as Azure environments are very prominent in the business world.
+While one _could_ set up such a thing locally, I decided that exposing devices in my home network to the internet with the explicit purpose of being attacked was too risky. Furthermore, I had interest in gaining experience with Microsoft Sentinel as Azure environments are very prominent in the business world.
 
-Below, we will see how I configured and ran this honeynet, what findings I came across, as well as limitations I ran into, lessons I learned, and what I would like to investigate to a greater extent if I get the opportunity to create another environment like this again.
+Below, we will see how I configured and ran this honeynet, what findings I came across; as well as limitations I ran into, lessons I learned, and what I would like to investigate to a greater extent if I get the opportunity to create another environment like this again.
 
 ## Setup
 
@@ -19,7 +19,7 @@ I did have to constrain my own setup from what Phillip used, however, as I can o
 Ultimately, what this lab environment comprised of is the following:
 
 - A log analytics workspace
-- An Azure Sentinel instance, configured to use that same log analytics workspace
+- A Microsoft Sentinel instance, configured to use that same log analytics workspace
 - A Defender for Cloud instance
 - Two virtual machines exposed to the internet, forwarding audit logs to the analytics workspace
 	+ One VM running Ubuntu for visibility to SSH attacks
@@ -27,7 +27,7 @@ Ultimately, what this lab environment comprised of is the following:
 	
 Firewall rules would be set with an explicit any/any allow rule for external access to the VMs and host-based firewall on the Windows machine would be disabled.
 
-Later, I would also configure two users (`minecraft` and `user`) on the Ubuntu machine based on usernames attackers were spraying with, configuring .bashrc and rsyslog to log commands run by all users. Accordingly, I set up Sentinel with the `Custom logs via AMA` data connector in order to ingest these logs for analysis. Unfortunately, as we will find, this did not end up logging anything relevant, despite finding evidence that an atacker did, in fact, run commands from that machine.
+Later, I would also configure two users (`minecraft` and `user`) on the Ubuntu machine based on usernames attackers were spraying with, configuring .bashrc and rsyslog to log commands run by all users. Accordingly, I set up Sentinel with the `Custom logs via AMA` data connector in order to ingest these logs for analysis. Unfortunately, as we will find, this did not end up logging anything relevant, despite finding evidence that an atacker did - in fact - run commands from that machine.
 
 I configured a custom alert on Sentinel to alert me to a successful login to either of the honeypot users on the Ubuntu machine and note the attacking IP as an entity for threat intelligence. The KQL syntax of this alert was simple enough:
 
@@ -49,7 +49,7 @@ By the time my trial had ended, I had significantly more data and the discrepanc
 
 Of particular curiosity to me is that Chinese IPs are so heavily relevant to attacks on the Linux machine, but much less significant in attacking the Windows one. Similarly, Indian IPs are very prevalent in attacking the Windows machine, but less so for Linux. United States traffic was highly relevant for both.
 
-This of course does not necessarily show what countries the attackers are _from_, but rather what the final hop they used to attack from was. This information is still interesting, however, as it may also indicate that attackers prefer to attack different types of machines from different hosting providers. While I would hesitate from making any causal conclusions from the data here (More honeynet machines being hosted in different zones could provide for less chance of bias in data gathered), it does indicate things that may be worth greater attention and investigation.
+This of course does not necessarily show what countries the attackers are _from_, but rather what the final hop they used to attack from was. This information is still interesting, however, as it may also indicate that attackers prefer to attack different types of machines from different hosting providers. While I would hesitate from making any causal conclusions from the data here (more honeynet machines being hosted in different zones could provide for less chance of bias in data gathered), it does indicate things that may be worth greater attention and investigation.
 
 Furthermore, while there were no commands logged from users that were not executed by myself during testing of the logging functionality, I was able to find that an attacker _did_ run commands from a user on the Linux machine.
 
@@ -67,16 +67,16 @@ This gives us a timeline to start with for initial access. Without command logs,
 
 Number one, I was able to resolve the IP as originating in Peru. I also checked the list of users that IP had attempted to use during their initial spraying attacks in order to profile what kind of actor they may be or what kind of target they may show interest in. Unfortunately, the userlist they seem to have used was very generic, populated entirely out of common services one may expect to find in production environments, and as such was not particularly helpful in fingerprinting.
 
-A quick check at virustotal, however, did show that others had reported the same IP as being malicious, phishing-related, and malware-related. No attribution to any particular organizations was made, however. This, in addition to the generic userlist leads me to believe that this is likely just a criminal hacker not associated with a larger support network.
+A quick check at Virustotal, however, did show that others had reported the same IP as being malicious, phishing-related, and malware-related. No attribution to any particular organizations was made, however. This, in addition to the generic userlist leads me to believe that this is likely just a criminal hacker not associated with a larger support network.
 
 If I had more time with my Azure trial, I would have liked to do further digging into this attacker and monitor more of what they do. As it is, I would currently simply recommend their IP be added to a blocklist, and move on.
 
 ## Issues/Lessons learned
 
-First and foremost from my lessons learned by this exercise is that the method I set up for logging commands was insufficient. Upon further research, I have found that any methodology that makes use of `history` in Linux is easily evaded by the addition of a single whitespace before a command. While I cannot be certain that this is what the Peruvian IP had done to evade my logging, it is by far the simplest way to hide and shows that my logging method requires further examination. After further research, in future deployments of linux machines where I need to log commands, I will instead opt to use `auditd` which is far more robust.
+The first and foremost lesson learned from this exercise is that the method I set up for logging commands was insufficient. Upon further research, I have found that any methodology that makes use of `history` in Linux is easily evaded by the addition of a single whitespace before a command. While I cannot be certain that this is what the Peruvian IP had done to evade my logging, it is by far the simplest way to hide and shows that my logging method requires further examination. After further research, in future deployments of linux machines where I need to log commands, I will instead opt to use `auditd` which is far more robust.
 
-Secondly, I found that I need to be more specific with what services I run. While experience with my own home lab means that I am able to run whatever I want with impunity. However, this attitude on a cloud account lead me to running out of credits owing to services that I was not actively using - in this case the biggest spender was Microsoft Defender for Cloud. While I had plans to use this service, I set it up far in advance of actually making use of it, meaning that it ended up eating a lot of my credits just existing and by the time I wanted to start digging into it, the trial was nearly over. I will need to be more purposeful about when I start services in cloud environments - even when I know that I _will_ want to be using them down the line.
+Secondly, I found that I need to be more specific with what services I run. Experience with my own home lab means that I am able to run whatever I want with impunity; however, this attitude on a cloud account lead me to running out of credits owing to services that I was not actively using - in this case the biggest spender was Microsoft Defender for Cloud. While I had plans to use this service, I set it up far in advance of actually making use of it, meaning that it ended up eating a lot of my credits just existing and by the time I wanted to start digging into it, the trial was nearly over. I will need to be more purposeful about when I start services in cloud environments - even when I know that I _will_ want to be using them down the line.
 
-I did get some interesting information that I want to dig into further down the line from this experiment, however. Primarily, I am very curious about the discrepany in IPs attacking different services and why that may be. Some have posited that RDP traffic from China is limited because China's "great firewall" may play havoc with RDP traffic. I do not know for certain if it is true, but a nationwide security policy would make sense as an explanation for why there is such a stark difference in RDP and SSH attacks from China.
+I did, however, get some interesting information from this experiment that I want to dig deeper into further down the line. Primarily, I am very curious about the discrepancy in IPs attacking different services and why that may be. Some have posited that RDP traffic from China is limited because China's "great firewall" may play havoc with RDP traffic. I do not know for certain if it is true, but a nationwide security policy would make sense as an explanation for why there is such a stark difference in RDP and SSH attacks from China.
 
 I would, however, want to set some things up differently before further examination of this question. While my results are intriguing, I do not think that a sample size of one machine for each service is adequate for drawing larger conclusions. With more time and funds down the line, I would rather like to see if I could make a number of different machines for each service, spread across different geographic regions, and then see if the results still show the same discrepancy that they did here.
